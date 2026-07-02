@@ -142,17 +142,18 @@ textarea.req-empty{border-color:#9c0006 !important;background:#fce4e4 !important
 
 <div class="ori" id="ori">
   <b>Laudo de Solicitação, Avaliação e Autorização de Medicamentos (LME)</b><br><br>
+  👉 Passe o mouse em cada pergunta, para verificar as orientações de preenchimento.<br>
   👉 Preencha todos os campos obrigatórios marcados com asterisco (*).<br>
   👉 Campos em vermelho ficam destacados até serem preenchidos.<br>
   Este formulário <b>não salva informações</b>, por isso salve em formato PDF, ao término do preenchimento e revisão.<br>
-  👉 Passe o mouse em cada pergunta, para verificar as orientações de preenchimento.<br>
-  👉 O formulário pode conter erros, por isso sempre confira as informações sobre medicamentos, CID e diagnósticos, em:<br>
+   👉 O formulário pode conter erros, por isso sempre confira as informações sobre medicamentos, CID e diagnósticos, em:<br>
   a) Lista de medicamentos do CEAF (ordem alfabética): <a href="https://www.saude.mg.gov.br/obtermedicamentos/ceaf/lista-de-medicamentos-por-ordem-alfabetica-ceaf/" target="_blank">https://www.saude.mg.gov.br/obtermedicamentos/ceaf/lista-de-medicamentos-por-ordem-alfabetica-ceaf/</a><br>
   b) Lista de medicamentos do CEAF (por doença): <a href="https://www.saude.mg.gov.br/obtermedicamentos/ceaf/lista-de-medicamentos-por-doenca/" target="_blank">https://www.saude.mg.gov.br/obtermedicamentos/ceaf/lista-de-medicamentos-por-doenca/</a><br>
   c) LME em branco: <a href="https://www.saude.mg.gov.br/wp-content/uploads/2025/01/lme-eletronico_Jun2023-v.2.pdf" target="_blank">https://www.saude.mg.gov.br/wp-content/uploads/2025/01/lme-eletronico_Jun2023-v.2.pdf</a><br>
   👉 O paciente deve providenciar todos os documentos e exames exigidos de acordo com o checklist para o seu tratamento específico: <a href="https://www.saude.mg.gov.br/obtermedicamentos/ceaf/formulariosceaf/" target="_blank">https://www.saude.mg.gov.br/obtermedicamentos/ceaf/formulariosceaf/</a><br>
   👉 Se o paciente tiver duas doenças diferentes, o médico deve preencher duas LMEs separadas.<br>
   👉 Uma única LME aceita no máximo 6 medicamentos para o mesmo CID<br>
+  👉 Sempre verifique se o modelo utilizado corresponde à versão mais atualizada da LME, conforme o link oficial - https://www.saude.mg.gov.br/obtermedicamentos/ceaf/formulariosceaf/
   👉 Busca CNES: <a href="https://assinador.iti.br/" target="_blank">http://cnes.datasus.gov.br/</a>
   
 </div>
@@ -392,7 +393,7 @@ textarea.req-empty{border-color:#9c0006 !important;background:#fce4e4 !important
     <!-- 15 + 16 lado a lado -->
    <div style="display:grid;grid-template-columns:1fr 130px;">
       <div style="padding:3px 6px;border-right:1px solid #000;min-height:32px;">
-        <details style="display: inline-block; cursor: pointer;" title="Preenchimento obrigatório com o número do cartão do profissional. O CPF não substitui este campo">
+        <details style="display: inline-block; cursor: pointer;" title="Preenchimento obrigatório com o número do Cartão Nacional de Saúde (CNS) do profissional. O CPF não substitui este campo.">
           <summary class="lbl" style="list-style: none; outline: none;">15. N° do CNS do médico solicitante <span class="r">*</span></summary>
         </details>
         <input type="text" id="cns_med" maxlength="15" oninput="this.value=this.value.replace(/\D/g,''); chkCNS(this);" onchange="chkCNS(this)" placeholder=" " style="width:100%;border:none;border-bottom:1px solid #aaa;outline:none;font-size:10px;font-family:Arial,sans-serif;background:transparent;">
@@ -407,7 +408,7 @@ textarea.req-empty{border-color:#9c0006 !important;background:#fce4e4 !important
   </div>
   <!-- 17 Assinatura – coluna direita, altura total -->
   <div style="padding:3px 6px;min-height:64px;">
-    <details style="display: inline-block; cursor: pointer;" title="Até orientação do contrário, sempre exigimos o carimbo ou os dados do médico no campo 17. Caso o preenchimento seja eletrônico, a assinatura é validada pelo ITI, mas os dados do médico devem constar no campo 17.">
+    <details style="display: inline-block; cursor: pointer;" title="Até orientação do contrário, sempre exigimos o carimbo ou os dados do médico no campo 17. Caso o preenchimento seja eletrônico, a assinatura é validada pelo ITI, mas os dados do médico devem constar no campo 17.Deve constar: nome completo, número de registro no conselho profissional, assinatura)">
       <summary class="lbl" style="list-style: none; outline: none;">17. Assinatura e carimbo do médico <span class="r">*</span></summary>
     </details>
     <div class="sigbox" style="min-height:48px;"></div>
@@ -475,7 +476,7 @@ textarea.req-empty{border-color:#9c0006 !important;background:#fce4e4 !important
     <input type="text" id="doc_num" placeholder=" " style="margin-top:4px;width:100%;border:none;border-bottom:1px solid #aaa;outline:none;font-size:10px;" maxlength="15" oninput="docInput(this);" onchange="docInput(this);">
   </div>
   <div class="cell">
-    <details style="display: inline-block; cursor: pointer;" title="Deve ser a assinatura da mesma pessoa identificada no campo ">
+    <details style="display: inline-block; cursor: pointer;" title="A assinatura deve corresponder à mesma pessoa identificada no campo 18. ">
       <summary class="lbl" style="list-style: none; outline: none;">23. Assinatura do responsável pelo preenchimento <span class="r">*</span></summary>
     </details>
     <div class="sigbox"></div>
