@@ -196,7 +196,7 @@ textarea.req-empty{border-color:#9c0006 !important;background:#fce4e4 !important
 </div>
   <div class="cell">
     <details>
-        <summary class="lbl" title="Escreva o nome fantasia da clínica ou hospital correspondente ao CNES ao lado">2. Nome do Estabelecimento de Saúde Solicitante <span class="r">*</span></summary>
+        <summary class="lbl" title="Escreva o nome fantasia da unidade de saúde correspondente ao CNES ao lado">2. Nome do Estabelecimento de Saúde Solicitante <span class="r">*</span></summary>
     </details>
     <input type="text" id="estabelecimento" onkeyup="chk(this)" onchange="chk(this)" placeholder=" ">
 </div>
@@ -248,7 +248,7 @@ textarea.req-empty{border-color:#9c0006 !important;background:#fce4e4 !important
     <tr>
       <th colspan="2" style="text-align:center;">
         <details>
-          <summary title="Use obrigatoriamente a Denominação Comum Brasileira (DCB) — nome genérico — e inclua a concentração. Inclua todos os medicamentos o tratamento do mesmo CID, que serão utilizados em associação e são fornecidos pela SES-MG.">7. <b>Medicamentos</b> <span style="color:#c00;">*</span></summary>
+          <summary title="Selecione 1 ou mais medicamentos vinculados ao mesmo CID-10, que serão utilizados em associação e são fornecidos pela SES-MG, e informe a quantidade solicitada correspondente ao número de tubetes ou refis.">7. <b>Medicamentos</b> <span style="color:#c00;">*</span></summary>
         </details>
       </th>
       <th colspan="6">
@@ -1218,7 +1218,7 @@ const STEPS = [
     id: 'estabelecimento',
     label: 'Campo 2 — Estabelecimento',
     question: 'Nome do Estabelecimento de Saúde Solicitante',
-    hint: 'Nome fantasia da clínica ou hospital correspondente ao CNES.',
+    hint: 'Nome fantasia da unidade de saúde correspondente ao CNES.',
     type: 'text',
     validate: v => v.trim() ? null : 'Campo obrigatório.'
   },
@@ -1234,7 +1234,7 @@ const STEPS = [
     id: 'nome_mae',
     label: 'Campo 4 — Nome da Mãe',
     question: 'Nome da Mãe do Paciente',
-    hint: 'Escreva o nome exatamente como consta no documento, sem abreviaturas.',
+    hint: 'Escreva o nome exatamente como consta no documento de identidade, sem abreviaturas.',
     type: 'text',
     validate: v => v.trim() ? null : 'Campo obrigatório.'
   },
@@ -1260,7 +1260,7 @@ const STEPS = [
     id: 'meds_block',
     label: 'Campos 7, 8 e 9 — Medicamentos, Quantidades e CID',
     question: 'Medicamentos solicitados, quantidades e CID-10',
-    hint: 'Obrigatório: pelo menos 1 medicamento e a quantidade do 1º mês. Você pode adicionar até 6 medicamentos com doses por mês.',
+    hint: 'Selecione 1 ou mais medicamentos vinculados ao mesmo CID-10, que serão utilizados em associação e são fornecidos pela SES-MG, e informe a quantidade solicitada correspondente ao número de tubetes ou refis.',
     type: 'meds_block',
     validate: v => v ? null : 'Preencha pelo menos o medicamento 1 e a quantidade do 1º mês.'
   },
