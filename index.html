@@ -253,7 +253,7 @@ textarea.req-empty{border-color:#9c0006 !important;background:#fce4e4 !important
       </th>
       <th colspan="6">
         <details>
-          <summary title="Informe apenas o número de cápsulas, comprimidos, seringas, frascos ou ampolas.">8. <b>Quantidade Solicitada</b> <span style="color:#c00;">*</span></summary>
+          <summary title="Informe apenas o número de tubetes, refis e canetas, não UI. É obrigatório preencher todos os meses.">8. <b>Quantidade Solicitada</b> <span style="color:#c00;">*</span></summary>
         </details>
       </th>
     </tr>
@@ -352,11 +352,10 @@ textarea.req-empty{border-color:#9c0006 !important;background:#fce4e4 !important
 <!-- 13 ATESTADO – SIM exibe campo Nome do Responsável -->
 <div style="border-bottom:1px solid #000;padding:4px 6px;">
 <details>
-  <summary style="cursor:pointer;" title="Assinale &quot;Sim&quot; (Incapaz) ou &quot;Não&quot; (Capaz) conforme os Artigos 3º e 4º do Código Civil. Atenção: Se marcar &quot;Sim&quot;, o nome do responsável deve ser preenchido por extenso. Erro comum: Não use este campo apenas porque o paciente tem dificuldade de locomoção. Se ele for consciente e orientado, marque &quot;Não&quot; e use uma &quot;Declaração Autorizadora&quot; para que outra pessoa retire o remédio">
+  <summary style="cursor:pointer;" title="Fica dispensada a obrigatoriedade da presença física do paciente considerado incapaz, conforme os artigos 3º e 4º do Código Civil. Assinale 'Sim' (Incapaz) ou 'Não' (Capaz). Caso marque 'Sim', o nome do responsável deverá ser preenchido por extenso. Não utilize este campo apenas porque o paciente possui dificuldade de locomoção. Se estiver consciente e orientado, marque 'Não' e utilize uma Declaração Autorizadora para retirada do medicamento por terceiros.">
     <div style="font-weight:bold;text-align:center;font-size:10px;margin-bottom:3px;">13. Atestado de Capacidade <span class="r">*</span></div>
     <div style="font-size:9.5px;text-align:center;margin-bottom:5px;line-height:1.5;">
-      A solicitação do medicamento deverá ser realizada pelo paciente. Entretanto, fica dispensada a obrigatoriedade
-      da presença física do paciente considerado incapaz de acordo com os artigos 3° e 4° do Código Civil.
+      Fica dispensada a obrigatoriedade da presença física do paciente considerado incapaz, conforme os artigos 3º e 4º do Código Civil. Assinale 'Sim' (Incapaz) ou 'Não' (Capaz). Caso marque 'Sim', o nome do responsável deverá ser preenchido por extenso. Não utilize este campo apenas porque o paciente possui dificuldade de locomoção. Se estiver consciente e orientado, marque 'Não' e utilize uma Declaração Autorizadora para retirada do medicamento por terceiros.
       O paciente é considerado incapaz?
     </div>
   </summary>
@@ -1284,7 +1283,7 @@ const STEPS = [
     id: 'rg_incapaz',
     label: 'Campo 13 — Atestado de Capacidade',
     question: '13. Atestado de Capacidade — O paciente é considerado incapaz?',
-    hint: 'A solicitação do medicamento deverá ser realizada pelo paciente. Entretanto, fica dispensada a obrigatoriedade da presença física do paciente considerado incapaz de acordo com os artigos 3° e 4° do Código Civil.',
+    hint: 'Fica dispensada a obrigatoriedade da presença física do paciente considerado incapaz, conforme os artigos 3º e 4º do Código Civil. Assinale 'Sim' (Incapaz) ou 'Não' (Capaz). Caso marque 'Sim', o nome do responsável deverá ser preenchido por extenso. Não utilize este campo apenas porque o paciente possui dificuldade de locomoção. Se estiver consciente e orientado, marque 'Não' e utilize uma Declaração Autorizadora para retirada do medicamento por terceiros.',
     type: 'radio_incapaz',
     validate: v => v ? null : 'Selecione uma opção.'
   },
