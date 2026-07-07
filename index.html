@@ -393,7 +393,7 @@ textarea.req-empty{border-color:#9c0006 !important;background:#fce4e4 !important
     <!-- 15 + 16 lado a lado -->
    <div style="display:grid;grid-template-columns:1fr 130px;">
       <div style="padding:3px 6px;border-right:1px solid #000;min-height:32px;">
-        <details style="display: inline-block; cursor: pointer;" title="Preenchimento obrigatório com o número do Cartão Nacional de Saúde (CNS) do profissional. O CPF não substitui este campo.">
+        <details style="display: inline-block; cursor: pointer;" title="Preenchimento obrigatório com o número do Cartão Nacional de Saúde (CNS) do profissional. O CPF não substitui este campo.">
           <summary class="lbl" style="list-style: none; outline: none;">15. N° do CNS do médico solicitante <span class="r">*</span></summary>
         </details>
         <input type="text" id="cns_med" maxlength="15" oninput="this.value=this.value.replace(/\D/g,''); chkCNS(this);" onchange="chkCNS(this)" placeholder=" " style="width:100%;border:none;border-bottom:1px solid #aaa;outline:none;font-size:10px;font-family:Arial,sans-serif;background:transparent;">
@@ -457,8 +457,8 @@ textarea.req-empty{border-color:#9c0006 !important;background:#fce4e4 !important
       <summary class="lbl" style="list-style: none; outline: none;">20. Telefone(s) para contato do paciente <span class="r">*</span></summary>
     </details>
     <div style="margin-top:4px;">
-      <input type="text" id="tel1" placeholder="(  )       " maxlength="15" oninput="maskTel(this);chk(this);" onchange="chk(this)" style="display:block;width:100%;border:none;border-bottom:1px solid #aaa;outline:none;font-size:10px;margin-bottom:5px;">
-      <input type="text" id="tel2" placeholder="(  )       " maxlength="15" oninput="maskTel(this)" style="display:block;width:100%;border:none;border-bottom:1px solid #aaa;outline:none;font-size:10px;">
+      <input type="text" id="tel1" placeholder="(  )       " maxlength="15" oninput="maskTel(this);chk(this);" onchange="chk(this)" style="display:block;width:100%;border:none;border-bottom:1px solid #aaa;outline:none;font-size:10px;margin-bottom:5px;">
+      <input type="text" id="tel2" placeholder="(  )       " maxlength="15" oninput="maskTel(this)" style="display:block;width:100%;border:none;border-bottom:1px solid #aaa;outline:none;font-size:10px;">
     </div>
   </div>
 </div>
@@ -634,15 +634,17 @@ function buildMed() {
   const opts = '<option value="">— Selecione —</option>' + MEDS.map(m=>`<option value="${m}">${m}</option>`).join('');
   for(let i=1;i<=6;i++) {
     const tr = document.createElement('tr');
-    const qty1Attr = (i===1) ? ' id="qty1" oninput="chkQty1(this)" onchange="chkQty1(this)"' : '';
+    let qtyCells = '';
+    for(let m=1;m<=6;m++) {
+      // Todos os 6 meses do Medicamento 1 (linha 1) são obrigatórios
+      const qtyAttr = (i===1)
+        ? ` id="qty1_${m}" oninput="this.value=this.value.replace(/[.,eE+-]/g,''); chkQty1(this);" onchange="chkQty1(this)"`
+        : ` oninput="this.value=this.value.replace(/[.,eE+-]/g,'')"`;
+      qtyCells += `<td class="qty"><input type="number" min="0" step="1" placeholder="0" inputmode="numeric" pattern="[0-9]*"${qtyAttr}></td>`;
+    }
     tr.innerHTML = `<td class="num">${i}</td>
       <td><select id="med${i}" onchange="onMedChg(${i})">${opts}</select></td>
-      <td class="qty"><input type="number" min="0" step="1" placeholder="0" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[.,eE+-]/g,'')"${qty1Attr}></td>
-      <td class="qty"><input type="number" min="0" step="1" placeholder="0" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[.,eE+-]/g,'')"></td>
-      <td class="qty"><input type="number" min="0" step="1" placeholder="0" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[.,eE+-]/g,'')"></td>
-      <td class="qty"><input type="number" min="0" step="1" placeholder="0" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[.,eE+-]/g,'')"></td>
-      <td class="qty"><input type="number" min="0" step="1" placeholder="0" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[.,eE+-]/g,'')"></td>
-      <td class="qty"><input type="number" min="0" step="1" placeholder="0" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[.,eE+-]/g,'')"></td>`;
+      ${qtyCells}`;
     tb.appendChild(tr);
   }
   chkMed1();
@@ -691,6 +693,7 @@ function chkMed1() {
 function chkQty1(el) {
   if(!el.value || el.value.trim()==='') el.classList.add('req-empty');
   else el.classList.remove('req-empty');
+  updateCounter();
 }
 /* Radio group: highlight if none selected */
 function chkRG(id) {
@@ -820,9 +823,11 @@ function initReq() {
   });
   document.getElementById('cid_sel').classList.add('req-empty');
   chkMed1();
-  // Campo 8: 1º mês obrigatório
-  const qty1=document.getElementById('qty1');
-  if(qty1) qty1.classList.add('req-empty');
+  // Campo 8: todos os 6 meses do Medicamento são obrigatórios
+  for(let m=1;m<=6;m++){
+    const qtyEl=document.getElementById('qty1_'+m);
+    if(qtyEl) qtyEl.classList.add('req-empty');
+  }
   // Campo 20: telefone 1 obrigatório
   const tel1=document.getElementById('tel1');
   if(tel1) tel1.classList.add('req-empty');
@@ -1220,7 +1225,7 @@ const STEPS = [
     question: 'Nome do Estabelecimento de Saúde Solicitante',
     hint: 'Nome fantasia da unidade de saúde correspondente ao CNES.',
     type: 'text',
-    validate: v => v.trim() ? null : 'Campo obrigatório.'
+    validate: v => v ? null : 'Preencha o medicamento e a quantidade de todos os 6 meses.'
   },
   {
     id: 'nome_civil',
@@ -1521,12 +1526,12 @@ function wizRender() {
         qWrap.style.cssText = 'display:flex;flex-direction:column;gap:2px;';
         const qLbl = document.createElement('label');
         qLbl.style.cssText = 'font-size:10px;color:#7f8c8d;';
-        qLbl.textContent = m + 'º mês' + (i===1 && m===1 ? ' *' : '');
+        qLbl.textContent = m + 'º mês' + (i===1 ? ' *' : '');
         const qInp = document.createElement('input');
         qInp.type = 'number'; qInp.min = '0'; qInp.step = '1'; qInp.placeholder = '0';
         qInp.id = 'wiz-qty-' + i + '-' + m;
         qInp.value = realQty;
-        qInp.style.cssText = 'padding:6px 8px;font-size:13px;border:2px solid ' + (i===1&&m===1?'#1a5276':'#d5d8dc') + ';border-radius:6px;width:100%;box-sizing:border-box;';
+        qInp.style.cssText = 'padding:6px 8px;font-size:13px;border:2px solid ' + (i===1?'#1a5276':'#d5d8dc') + ';border-radius:6px;width:100%;box-sizing:border-box;';
         qInp.addEventListener('input', function() {
           this.value = this.value.replace(/[.,eE+\-]/g, '');
         });
@@ -1963,16 +1968,23 @@ function wizGetValue(step) {
     const el = document.getElementById('wiz-inp');
     return el ? el.value : '';
   } else if (t === 'meds_block') {
-    // Valida: med1 selecionado + qty mês 1 > 0 + CID selecionado
+    // Valida: med1 selecionado + qty de TODOS os 6 meses preenchida + CID selecionado
     const med1Sel = document.getElementById('wiz-med-sel-1');
-    const qty1Inp = document.getElementById('wiz-qty-1-1');
     const med1Val = med1Sel ? med1Sel.value : '';
-    const qty1Val = qty1Inp ? parseInt(qty1Inp.value) : 0;
+    if (!med1Val) { document.getElementById('wiz-error').textContent = '⚠️ Selecione o Medicamento 1.'; return null; }
+
+    for (let m = 1; m <= 6; m++) {
+      const qtyInp = document.getElementById('wiz-qty-1-' + m);
+      if (!qtyInp || qtyInp.value === '' || qtyInp.value === null) {
+        document.getElementById('wiz-error').textContent = '⚠️ Informe a quantidade do ' + m + 'º mês para o Medicamento 1 (use 0 se não houver quantidade naquele mês).';
+        qtyInp && qtyInp.focus();
+        return null;
+      }
+    }
+
     // CID está guardado no input hidden #wiz-cid-sel (preenchido pelo clique nos botões)
     const cidHiddenEl = document.getElementById('wiz-cid-sel');
     const cidVal = cidHiddenEl ? cidHiddenEl.value.trim() : '';
-    if (!med1Val) { document.getElementById('wiz-error').textContent = '⚠️ Selecione o Medicamento 1.'; return null; }
-    if (!qty1Val || qty1Val < 1) { document.getElementById('wiz-error').textContent = '⚠️ Informe a quantidade do 1º mês para o Medicamento 1.'; return null; }
     if (!cidVal) { document.getElementById('wiz-error').textContent = '⚠️ Selecione o CID-10 clicando em um dos botões acima.'; return null; }
     return 'ok';
   } else if (t === 'radio_trat') {
